@@ -2,106 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>For You ❤️</title>
+  <title>Memory</title>
+
   <style>
     body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: white;
-  font-family: "Segoe UI", sans-serif;
-}
-
-    /* Heart */
-    .heart {
-      width: 100px;
-      height: 100px;
-      background: red;
-      position: relative;
-      transform: rotate(-45deg);
-      cursor: pointer;
-      animation: pulse 1.5s infinite;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: "";
-      width: 100px;
-      height: 100px;
-      background: red;
-      border-radius: 50%;
-      position: absolute;
-    }
-
-    .heart::before {
-      top: -50px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: 50px;
-      top: 0;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1) rotate(-45deg); }
-      50% { transform: scale(1.1) rotate(-45deg); }
-      100% { transform: scale(1) rotate(-45deg); }
-    }
-
-    /* Hidden content */
-    .content {
-      display: none;
-      flex-direction: column;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
       align-items: center;
-    }
-
-    /* Polaroid */
-    .polaroid {
       background: white;
-      padding: 15px 15px 50px;
-      width: 300px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      text-align: center;
+      font-family: Arial, sans-serif;
     }
 
-    .polaroid img {
+    .polaroid {
+      width: 300px;
+      height: 380px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .polaroid-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .polaroid.flipped .polaroid-inner {
+      transform: rotateY(180deg);
+    }
+
+    .polaroid-front,
+    .polaroid-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: white;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      backface-visibility: hidden;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    .polaroid-front img {
       width: 100%;
       height: auto;
     }
 
-    .note {
-      margin-top: 10px;
+    .polaroid-back {
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       font-size: 16px;
+      line-height: 1.5;
       color: #444;
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Heart -->
-  <div class="heart" id="heart"></div>
+  <div class="polaroid" id="polaroid">
+    <div class="polaroid-inner">
 
-  <!-- Content -->
-  <div class="content" id="content">
-    <div class="polaroid">
-      <img src="Screenshot 2026-01-29 124248.png" alt="Memory">
-      <div class="note">
-        Happy Valentine nhaaaaa, vậy mà cũng hơn nửa năm rồi he. Nhớ valentine năm nào bạn trả lời mông lung làm tôi bực đến phát khóc, thật sự lúc đó chỉ muốn đấm vào mặt thôi. Haizaa mà ít ra năm đó còn ở cùng thành phố để gửi quà (mặc dù vẫn gián tiếp chớ đéo phải trực tiếp), chớ cx ko thảm đến nỗi mỗi đứa mỗi nơi lạnh lẽo như năm nay. Nên thui, Chi gửi sự ấm áp đến Đức Anh, nhớ giữ ấm nhaa, cố gắng chống lại mùa đông giá rét ở Melbourne nhó. Iu 🤍
-        Ps: chúc Đức Anh nói nhìu hơn và bớt chửi tục lại:)
+      <!-- FRONT -->
+      <div class="polaroid-front">
+        <img src="Screenshot 2026-01-29 124248.png" alt="Memory">
       </div>
+
+      <!-- BACK -->
+      <div class="polaroid-back">
+        <p>
+          Happy Valentine nhaaaaa, vậy mà cũng hơn nửa năm rồi he. Nhớ valentine năm nào bạn trả lời mông lung làm tôi bực đến phát khóc, thật sự lúc đó chỉ muốn đấm vào mặt thôi. Haizaa mà ít ra năm đó còn ở cùng thành phố để gửi quà (mặc dù vẫn gián tiếp chớ đéo phải trực tiếp), chớ cx ko thảm đến nỗi mỗi đứa mỗi nơi lạnh lẽo như năm nay. Nên thui, Chi gửi sự ấm áp đến Đức Anh, nhớ giữ ấm nhaa, cố gắng chống lại mùa đông giá rét ở Melbourne nhó. Iu 🤍 
+          Ps: chúc Đức Anh nói nhìu hơn và bớt chửi tục lại:)
+        </p>
+      </div>
+
     </div>
   </div>
 
   <script>
-    const heart = document.getElementById("heart");
-    const content = document.getElementById("content");
-
-    heart.addEventListener("click", () => {
-      heart.style.display = "none";
-      content.style.display = "flex";
+    const polaroid = document.getElementById("polaroid");
+    polaroid.addEventListener("click", () => {
+      polaroid.classList.toggle("flipped");
     });
   </script>
 
